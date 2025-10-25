@@ -88,16 +88,42 @@ kubectl logs -n mateapp job/todoapp-curl-cronjob
 
 
 Check DaemonSet Pods
-kubectl get daemonset -n mateapp
-kubectl get pods -n mateapp -l app=todoapp
+
+A DaemonSet runs one Pod per node.
+So you check logs from one (or all) of its Pods.
+
+1List all Pods of the DaemonSet:
+
+kubectl get pods -l app=<label-name> -n <namespace>
 
 
-View logs from one DaemonSet pod:
+2Get logs from a specific Pod:
 
-kubectl logs -n mateapp <pod-name> -f
+kubectl logs <pod-name> -n <namespace>
 
 
-You should see:
+Or get logs from all Pods managed by the DaemonSet:
 
-Running curl
-<html> ... todoapp response ... </html>
+kubectl logs daemonset/<daemonset-name> -n <namespace>
+
+
+
+Logs from a CronJob
+
+A CronJob creates a Job, and that Job creates one or more Pods.
+You check logs from the Pod created by the latest Job.
+
+1List Jobs:
+
+kubectl get jobs -n <namespace>
+
+
+2List Pods created by a specific Job:
+
+kubectl get pods -l job-name=<job-name> -n <namespace>
+
+
+Show logs from the Pod:
+
+kubectl logs <pod-name> -n <namespace>
+

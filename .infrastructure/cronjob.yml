@@ -5,7 +5,7 @@ metadata:
   namespace: mateapp
 spec:
   schedule: "*/4 * * * *"
-  concurrencyPolicy: Replace
+  concurrencyPolicy: Allow
   successfulJobsHistoryLimit: 10
   failedJobsHistoryLimit: 5
   jobTemplate:
